@@ -8,7 +8,7 @@
 # or (at your option) any later version.
 #
 # The full text of the license can be found in the file LICENSE in the
-# gravity-inversion source directory or at <http://www.gnu.org/licenses/>.
+# two-stage glacier model source directory or at <http://www.gnu.org/licenses/>.
 
 import numpy as np
 from sympy import integrate
@@ -22,38 +22,55 @@ from constants import (gravity as g,
 	)
 
 
-def equilibrium(L,H,b0,m0,S0=Sbar,Ωbar=Ωbar,rho_w=ρ_W,rho_i=rho_I,α=α,β=β,nts=n):
-    S0 = S0/year
-    Larray=np.zeros(nts)
-    harray=np.zeros(nts)
-    for t in range(nts):
-        # update fluxes
+def m(n):
+	return 1/n
+
+def α(n):
+	return 2*n+1
+
+def β(n):
+	return (m(n)+n+3)/(m(n)+1)
+
+def ν(n,C):
+	return (ρ_I*g/C)**n 
+
+
+
+def initialize_forcing(N, Sbar, Sσ, Obar, Oσ, δS=0.0, δO=0.0, startS=0.0, endS=0.0, startO=0.0, endO=0.0):
+	r"""
+	return ocean melt and surface mass balance forcing
+	"""
+
+	return forcing.Ω(N,Obar,Oσ,δO,startO,endO), forcing.smb(N,Sbar,Sσ,δS,startS,endS)
+
+def equilibrium(L,H,b0,m0,C,S,Ωbar,dt=1.0,N=100000):
+	r"""
+	return equilibrium thickness and length
+	"""
+
+    for t in range(N):
         b = model.bed(b0,m,L)
-        Hg = model
-        Q = ν*h0**α/(L0**n)
-        Qg = Ωbar*Hg**β
-        # update geometry
-        dh = dhdt(S0,h0,L0,Q,Qg)*dt*year
-        dxg = dLdt(Q,Qg,hg)*dt*year
-        h0 = h0 + dh
-        L0 = L0 + dxg
-        harray[t]=h0
-        Larray[t]=L0
-    return harray,Larray
+        Hg = model.grounding_thickness(b)
+        Q = model.interior_flux(L,H,ν(n,C),α(n),n)
+        Qg = model.grounding_flux(Ω,b0,m(n),L,β(n))
+        dh = dhdt(S,H,L,Q,Qg)*dt*year
+        dL = dLdt(Q,Qg,Hg)*dt*year
+        h = h + dh
+        L = L + dL
 
+    return H, L
 
-    h=h0[-1]
-xg=L0[-1]
-bt=b0
-mt=bx
+def simulation(N, H0, L0, m0, b0, Ω, S):
+	r"""
+	return timeseries of thickness, glacier, length, slope and fluxes.
+	"""
 
-def simulation(n,H0,L0,m0,b0,Ω,S,α=,β=,ν=):
-	L = np.zeros(n)
-	H = np.zeros(n)
-	b = np.zeros(n)
-	m = np.zeros(n)
-	Q = np.zeros(n)
-	Qg = np.zeros(n)
+	L = np.zeros(N)
+	H = np.zeros(N)
+	b = np.zeros(N)
+	m = np.zeros(N)
+	Q = np.zeros(N)
+	Qg = np.zeros(N)
 
 	Htmp=H0.copy()
 	Ltmp=L0.copy()
@@ -61,25 +78,22 @@ def simulation(n,H0,L0,m0,b0,Ω,S,α=,β=,ν=):
 
 
 
-
-
-	for t in range(n):
-
-    	dm=model.dmdt(htmp,Ltmp,L0,mtmp)
-
-    	mtmp=mtmp+dm*dt
-    	b= model.bed(b0,mtmp,Ltmp)
-    	Hg= model.grounding_thickness(b)
-    	Q[t]=model.interior_flux(L,H,ν,α,n)
-    	Qg[t]=model.grounding_flux(Ω,b0,m,L,β)
-
-    	dh=model.dhdt(S[t],Htmp,Ltmp,Q[t],Qg[t])*dt*year
-    	dL=model.dLdt(Q[t],Qg[t],Hg)*dt*year
-    	Htmp = Htmp + dh
-    	Ltmp = Ltmp + dL
-    	m[t] = mtmp
+	for t in range(N):
+		m[t] = mtmp
     	H[t] = Htmp
     	L[t] = Ltmp
+
+    	b= model.bed(b0,mtmp,Ltmp)
+    	Hg= model.grounding_thickness(b)
+    	Q[t]=model.interior_flux(L,H,ν(n,C),α(n),n)
+    	Qg[t]=model.grounding_flux(Ω,b0,m(n),L,β(n))
+
+    	dh=model.dhdt(S[t],Htmp,Ltmp,Q[t],Qg[t])*dt
+    	dL=model.dLdt(Q[t],Qg[t],Hg)*dt
+    	dm=model.dmdt(htmp,Ltmp,L0,mtmp)*dt
+    	mtmp=mtmp + dm
+    	Htmp = Htmp + dH
+    	Ltmp = Ltmp + dL
 
     return L,H,m,Q,Qg
 

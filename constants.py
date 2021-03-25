@@ -30,3 +30,12 @@ ice_density = 917
 
 #: density of seawater
 water_density = 1024
+
+#: glen flow coefficient
+glen_coefficent = 4.22e-25
+
+#: friction coeffient
+friction_coefficient = 7.624e6 
+
+#: buttressing parameter
+theta = 0.7

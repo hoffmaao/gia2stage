@@ -14,36 +14,47 @@ import numpy as np
 from constants import (gravity as g,
 	glen_flow_law as n,
 	ice_denisty as ρ_I,
-	water_density as ρ_W
+	water_density as ρ_W,
 	)
 
 
-def noiseS(nts):
-	noiseS=np.random.randn(int(nts))
-	noiseS=noiseS/np.std(noiseS)
-	return noiseS
+def noise(N):
+	r"""
+	return array of white noise
+	"""
+	
+	noise=np.random.randn(int(N))
+	noise=noise/np.std(noise)
+	return noise
 
-def noiseO(nts):
-	noiseO = np.random.randn(int(nts))
-	noiseO = noiseO/np.std(noiseO)
-	return noiseO
+def anomaly(start, end):
+	r"""
+	return start and end anomaly
+	"""
 
-def smb(nts,year=1.0,Sbar = 0.5,sigS=.5,deltaS=0.0,start=0.0,end=0.0):
-	anom = np.linspace(0.0,1.0,end-start)           
-	S = deltaS*Sbar*np.concatenate([np.zeros(startyrS), anom, np.ones(nts-endyrS)]) + Sbar + sigS*Sbar*noiseS(nts)
-	S = S/year
-	return S
+	return np.linspace(0.0,1.0,end-start) 
 
-def omega_bar(nts,theta=0.7,C=7.624e6,A_glen=4.22e-25):
-	m=1/n
-	alpha=2*n+1
-	gamma=n
-	beta=(m+n+3)/(m+1)            ### buttressing parameter ###
-	lam=ρ_W/ρ_I
-	omega_bar=(A_glen*(ρ_I*g)**(n+1)*(theta*(1-lam**-1))**n*(4**n*C)**-1)**(1/(m+1))
-	return omega_bar
+def smb(N, Sbar, Sσ, δS, start, end):
+	r"""
+	return surface mass balance array
+	"""
 
-def omega(nts,year=1.0,sigO=0.0,deltaO=0.0,start=0.0,end=0):
-	anom=np.linespace(0,1,end-start)
-	return omega=deltaO*omega_bar(nts)*np.concatenate([np.zeros(startyrO), anom, np.ones(nts-endyrO)]) + omega_bar(nts) + sigO*omega_bar*noiseO(nts)
+	δ = anomaly(start,end)           
+	return δS*Sbar*np.concatenate([np.zeros(start), δ, np.ones(N-end)]) + Sbar + σS*Sbar*noise(n)
+
+def Ωbar(C, A, θ, m):
+	r"""
+	return the melt rate.
+	"""
+
+	λ=ρ_W/ρ_I
+	return (A*(ρ_I*g)**(n+1)*(θ*(1-λ**-1))**n*(4**n*C)**-1)**(1/(m+1))
+
+def Ω(N, Ωbar, Ωσ, δO, start, end):
+	r"""
+	
+	"""
+
+	δ=anomaly(start,end)
+	return Ωbar*(δO*np.concatenate([np.zeros(start), δ, np.ones(N-end)]) + 1.0 + σO*noise(N))
 
