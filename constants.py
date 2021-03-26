@@ -29,13 +29,16 @@ gravity = 9.81
 ice_density = 917
 
 #: density of seawater
-water_density = 1024
+water_density = 1028
 
 #: glen flow coefficient
-glen_coefficent = 4.22e-25
+glen_coefficient = 4.22e-25
 
 #: friction coeffient
 friction_coefficient = 7.624e6 
 
 #: buttressing parameter
 theta = 0.7
+
+#: bedrock rigidity
+bedrock_rigidity = 1e24

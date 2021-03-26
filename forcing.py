@@ -13,7 +13,7 @@
 import numpy as np
 from constants import (gravity as g,
 	glen_flow_law as n,
-	ice_denisty as ρ_I,
+	ice_density as ρ_I,
 	water_density as ρ_W,
 	)
 
@@ -40,7 +40,7 @@ def smb(N, Sbar, Sσ, δS, start, end):
 	"""
 
 	δ = anomaly(start,end)           
-	return δS*Sbar*np.concatenate([np.zeros(start), δ, np.ones(N-end)]) + Sbar + σS*Sbar*noise(n)
+	return δS*Sbar*np.concatenate([np.zeros(start), δ, np.ones(N-end)]) + Sbar + Sσ*Sbar*noise(N)
 
 def Ωbar(C, A, θ, m):
 	r"""
@@ -56,5 +56,5 @@ def Ω(N, Ωbar, Ωσ, δO, start, end):
 	"""
 
 	δ=anomaly(start,end)
-	return Ωbar*(δO*np.concatenate([np.zeros(start), δ, np.ones(N-end)]) + 1.0 + σO*noise(N))
+	return Ωbar*(δO*np.concatenate([np.zeros(start), δ, np.ones(N-end)]) + 1.0 + Ωσ*noise(N))
 

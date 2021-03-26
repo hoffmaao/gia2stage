@@ -11,18 +11,17 @@
 # gravity-inversion source directory or at <http://www.gnu.org/licenses/>.
 
 import numpy as np
-from sympy import integrate
 from constants import (gravity as g,
 	glen_flow_law as n,
-	ice_denisty as ρ_I,
-	water_density as ρ_W
+	ice_density as ρ_I,
+	water_density as ρ_W,
+	bedrock_rigidity as D
 	)
 
 def bed(b0,m,L):
 	r"""
 	return bed elevation at grounding line
 	"""
-
 	return b0+m*L
 
 def grounding_thickness(b):
@@ -46,28 +45,25 @@ def grounding_flux(Ω,b0,m,L,β):
 
 	return Ω*grounding_thickness(bed(b0,m,L))**β
 
-def dhdt(S,H,L,Q,Qg):
+def dhdt(S,H,L,b,Q,Qg):
 	r"""
 	return change in thickness
 	"""
-
-    dhdt = S - Qg/L - (H/(hg*L))*(Q-Qg)
-    return dhdt
-
+	dhdt = S - Qg/L - (H/(grounding_thickness(b)*L))*(Q-Qg)
+	return dhdt
 
 def dLdt(Q,Qg,hg):
-	r"""
-	description of the change in glacier length
-	"""
-
+    r"""
+    description of the change in glacier length
+    """
     dLdt = (Q-Qg)/hg
     return dLdt
 
-def dmdt(L,H,hg,H0,hg0,L0,D,t,tr):
+def dmdt(H,L,H0,L0):
 	r"""
 
 	"""
 	
-	Vf=(H-H0)*(L-L0)*g*ρ_I
-	dmdt=Vf/D*L0
+	Vf=(L0-L)*g*ρ_I
+	dmdt= Vf/D*L0
 	return dmdt
