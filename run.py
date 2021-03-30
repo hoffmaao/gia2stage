@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 
 
 # Simulation parameters
-N = 100000
+N = 40
 Sbar = .5
 Sσ = Sbar/1.
 Obar = forcing.Ωbar(C,A,θ,simulation.m(n))
@@ -41,6 +41,8 @@ m0=-2e-3
 H0,L0=simulation.equilibrium(1413,184000,b0,m0,Sbar,Obar)
 print(H0)
 print(L0)
+
+
 
 H,L,m,Q,Qg=simulation.simulation(H0,L0,m0,b0,Ω,smb,N)
 

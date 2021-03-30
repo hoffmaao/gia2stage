@@ -26,10 +26,13 @@ glen_flow_law = 3.0
 gravity = 9.81
 
 #: density of ice
-ice_density = 917
+ice_density = 917.
 
 #: density of seawater
-water_density = 1028
+water_density = 1028.
+
+#: density of bedrock
+bed_density = 3300.
 
 #: glen flow coefficient
 glen_coefficient = 4.22e-25
@@ -41,4 +44,7 @@ friction_coefficient = 7.624e6
 theta = 0.7
 
 #: bedrock rigidity
-bedrock_rigidity = 1e24
+bedrock_rigidity = 1e20
+
+#: response time
+response_time = 3000

@@ -7,3 +7,7 @@ Code, scripts and preprint for study on viscoelastic coupling of the solid earth
 python
 
 python-numpy, python-scipy
+
+sympy
+
+jupyter

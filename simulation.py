@@ -49,7 +49,7 @@ def initialize_forcing(Sbar, Sσ, Obar, Oσ, N, δS=0.0, δO=0.0, startS=0, endS
 
 	return forcing.Ω(N,Obar,Oσ,δO,startO,endO), forcing.smb(N,Sbar,Sσ,δS,startS,endS)
 
-def equilibrium(H, L, b0, m0, Sbar, Ωbar, N=100000, dt=1.0):
+def equilibrium(H, L, b0, m0, Sbar, Ωbar, N=1000000, dt=1.0):
 	r"""
 	return equilibrium thickness and length
 	"""
@@ -66,34 +66,34 @@ def equilibrium(H, L, b0, m0, Sbar, Ωbar, N=100000, dt=1.0):
 		L = L + dL
 	return H, L
 
-def simulation(H0, L0, m0, b0, Ω, S, N, dt=1.0):
+def simulation(H0, L0, m0, b0, Ω, S, N, D, dt=1.0):
     r"""
     return timeseries of thickness, glacier, length, slope and fluxes.
     """
 
     L = np.zeros(N)
     H = np.zeros(N)
-    b = np.zeros(N)
-    bx = np.zeros(N)
+    M = np.zeros(N)
     Q = np.zeros(N)
     Qg = np.zeros(N)
     Htmp=H0
     Ltmp=L0
     mtmp=m0
+    #btmp=b0
     for t in range(N):
-    	bx[t] = mtmp
+    	M[t] = mtmp
     	H[t] = Htmp
     	L[t] = Ltmp
-    	b= model.bed(b0,mtmp,Ltmp)
+    	b = model.bed(b0,mtmp,Ltmp)
     	Hg= model.grounding_thickness(b)
     	Q[t]=model.interior_flux(Ltmp,Htmp,ν(n,C),α(n),n)
     	Qg[t]=model.grounding_flux(Ω[t],b0,mtmp,Ltmp,β(n))
     	dH=model.dhdt(S[t]/year,Htmp,Ltmp,b,Q[t],Qg[t])*dt*year
     	dL=model.dLdt(Q[t],Qg[t],Hg)*dt*year
-    	dm=model.dmdt(Htmp,Ltmp,H0,L0)*dt*year
+    	dm=model.dmdt(Htmp,Ltmp,mtmp,H0,L0,m0,b0,D)*dt*year
     	mtmp=mtmp + dm
     	Htmp = Htmp + dH
     	Ltmp = Ltmp + dL
 
-    return H,L,bx,Q,Qg
+    return H,L,M,Q,Qg
 
