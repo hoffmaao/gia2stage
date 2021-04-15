@@ -16,75 +16,220 @@ from constants import (gravity as g,
 	glen_flow_law as n,
 	ice_density as ρ_I,
 	water_density as ρ_W,
-	bed_density as ρ_b,
+	bedrock_density as ρ_s,
 	bedrock_rigidity as D
 	)
 
-def bed(b0, m, L):
+def bed(b, m, L):
 	r"""
-	return bed elevation at grounding line
+	calculate bed elevation at grounding zone
+
+	b : float
+	    interior bed elevation
+	m : float
+	    bedrock slope
+	L : float
+	    glacier length
 	"""
-	return b0+m*L
+
+	return b+m*L
 
 def grounding_thickness(b):
 	r"""
-	return grounding line thickness
+	calculate ice thickness at grounding line
+
+	b : float
+	    bedrock elevtion at grounding zone
 	"""
 
 	return -ρ_W/ρ_I*b
 
 def interior_flux(L, H, ν, α, n):
 	r"""
-	the interior flux of the ice sheet.
+	calculate interior flux of the ice sheet.
+
+	L : float
+	    glacier length
+	H : float
+	    interior thickness
+	ν : float
+	    interior coefficient
+	α : float
+	    interior exponent
+	n : float
+	    glen exponent
 	"""
 
 	return ν*H**α/(L**n)
 
 def grounding_flux(Ω, b0, m, L, β):
 	r"""
-	return grounding zone flux
+	calculate grounding zone flux
+
+	Ω : float
+	    ocean flux coefficient
+	b0 : float
+	     interior bed elevation
+	m : float
+	    bedrock slope
+	L : float
+	    glacier length
+	β : float
+	    grounding zone exponent
 	"""
 
 	return Ω*grounding_thickness(bed(b0,m,L))**β
 
 def dhdt(S, H, L, b, Q, Qg):
 	r"""
-	return change in thickness
+	calculate change in thickness
+
+	S : float
+	    surface mass balance.(m/a)
+	H : float
+	    interior ice thickness.(m)
+	L : float
+	    glacier length.(m)
+	b : float
+	    interior bedrock elevation.(m)
+	Q : float
+	    interior flux
+	Qg : float
+	     grounding zone flux
 	"""
-	dhdt = S - Qg/L - (H/(grounding_thickness(b)*L))*(Q-Qg)
-	return dhdt
+
+	return S - Qg/L - (H/(grounding_thickness(b)*L))*(Q-Qg)
 
 def dLdt(Q, Qg, hg):
     r"""
-    description of the change in glacier length
+    calculate change in glacier length
+
+    Q : float
+        interior flux
+    Qg : float
+         grounding zone flux
+    hg : float
+         grounding zone ice thickness
     """
-    dLdt = (Q-Qg)/hg
-    return dLdt
 
-def dbdt(H, H0, b, b0, S):
-	r"""
-	"""
-	σ=ρ_I * g * (H - H0)
-	return -σ/D
-
+    return (Q-Qg)/hg
 
 def stress_profile(H, L, m, b, x):
 	r"""
-	returns the stress profile of 
+	calculate the stress profile assuming Weertman equilibrium profile.
+
+	H : float 
+	    glaicer thickness
+	L : float
+	    glacier length
+	m : float
+	    bedrock slope
+	b : float
+	    interior bed elevation
+	x : sympy dependent variable
+	    distance
 	"""
-	x = sympy.symbols('x', real=True, positive=True)
+
 	Hg = grounding_thickness(bed(b,m,L))
 	σ_I = ρ_I * g * ((H-Hg) * sympy.sqrt((L-x)/L)+ Hg)
 	σ_W = ρ_W * g * -(m * x + b)
+
 	return sympy.Piecewise((σ_I,x<=L),(σ_W,x>L))
 
-
-
-def dmdt(H, L, m, H0, L0, m0, b0, D):
+def stress(H, L, m, H0, L0, m0, b0):
 	r"""
+	calculate the average stress difference along the profile
 
+	H : float
+	    interior ice thickness
+	L : float
+	    glacier length
+	m : float
+	    bedrock slope
+	H0 : float
+	     equalibrium interior thickness
+	L0 : float
+	     equalibrium glacier length
+	m0 : float
+	     equalibrium bedrock slope
+	b0 : float
+	     interior bedrock elevation
 	"""
+
 	x = sympy.symbols('x', real=True, positive=True)
 	Lmax=np.max((L0,L))
 	Vf = sympy.integrate(stress_profile(H,L,m,b0,x) - stress_profile(H0,L0,m0,b0,x),(x,0,Lmax))
-	return -Vf/Lmax/D
+	return Vf / Lmax
+
+
+def deflection_angle(H, L, m, H0, L0, m0, b0):
+	r"""
+	calculate the equilibrium angle
+
+	H : float
+	    interior ice thickness
+	L : float
+	    glacier length
+	m : float
+	    bedrock slope
+	H0 : float
+	     equalibrium interior thickness
+	L0 : float
+	     equalibrium glacier length
+	m0 : float
+	     equalibrium bedrock slope
+	b0 : float
+	     interior bedrock elevation
+	"""
+
+	x = sympy.symbols('x', real=True, positive=True)
+	Lmax=np.max((L0,L))
+	Vf = sympy.integrate(-ρ_s * g * ((m * x + b0) - (m0 * x + b0)) +  stress_profile(H,L,m,b0,x) - stress_profile(H0,L0,m0,b0,x),(x,0,Lmax))
+	return Vf / (ρ_s * g) / Lmax**2
+
+def dmdt(w ,m , m0, τb):
+	r"""
+	calculate dmdt 
+
+	w : float
+	    current equalibrium slope
+	m : float
+	    bed slope
+	m0 : float
+	     initial equalibrium.
+	τb : float
+         timescale of deflection
+	"""
+
+	return -1/τb*(w+m-m0)
+
+
+def elastic(σ,E,γ):
+	r"""
+	calculate the elastic deformation due to an applied stress.
+
+	σ : float
+	    stress disequalibrium
+	E : float
+	    bedrock elasticity
+	"""
+
+	return γ*σ/D
+
+def viscoelastic(σ,σp,E,η,γ,dt):
+	r"""
+	calculate the viscoelastic deformation rate due to an applied stress.
+
+	σ : float
+	    current length average stress
+	σp : float
+	    previous length average stress
+    E : float
+        bedrock elasticity
+    η : float
+        bedrock viscosity
+    dt : float
+        time step
+	"""
+
+	return γ/η*(η/E*(σ-σp)/dt+σ)

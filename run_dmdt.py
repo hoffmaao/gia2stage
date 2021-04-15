@@ -7,6 +7,7 @@ from constants import (gravity as g,
 	glen_flow_law as n,
 	ice_density as ρ_I,
 	water_density as ρ_W,
+	bedrock_density as ρ_s,
 	glen_flow_law as n,
 	glen_coefficient as A,
 	friction_coefficient as C,
@@ -18,12 +19,14 @@ import matplotlib.pyplot as plt
 
 
 # Simulation parameters
-N = 1000
+N = 1000000
 Sbar = .5
 Sσ = .5
 Obar = forcing.Ωbar(C,A,θ,simulation.m(n))
 Oσ = 0.0
 dt = 1.0
+
+
 
 # Initialize and forcing
 Ω,smb=simulation.initialize_forcing(Sbar,Sσ,Obar,0.0,N)
@@ -44,8 +47,7 @@ m0=-2e-3
 H0,L0=simulation.equilibrium(1413,184000,m0,b0,Obar,Sbar/year)
 
 print('starting simulation 1')
-E = np.array([1.0e13])
-η = np.array([1.0e20])
+τ = np.array([3000])
 
 from scipy import signal
 
@@ -78,20 +80,11 @@ ax3.set_xlabel("frequency.(yr$^{-1}$)")
 ax3.grid(True, which="both")
 fig3.tight_layout()
 
-for i in range(len(E)):
-    H,L,M,Q,Qg=simulation.elastic_simulation(H0,L0,m0,b0,Ω,smb,N,E[i])
+for i in range(len(τ)):
+    H,L,M,Q,Qg=simulation.Oerlemans_simulation(H0,L0,m0,b0,Ω,smb,N,τ[i])
     plot.figure02(fig1,ax1,ax2,H,L/1000,N,dt)
     plot.figure01(fig2,ax,M,N,dt,label=r'slope')
-    plot.figure03(fig3,ax3,L,N,dt)
-
-
-for i in range(len(E)):
-	for j in range(len(η)):
-		H,L,M,Q,Qg=simulation.viscoelastic_simulation(H0,L0,m0,b0,Ω,smb,N,E[i],η[j])
-		plot.figure02(fig1,ax1,ax2,H,L/1000,N,dt)
-		plot.figure01(fig2,ax,M,N,dt,label=r'slope')
-		plot.figure03(fig3,ax3,L,N,dt)
-
+    plot.figure03(fig3,ax3,L/1000,N,dt)
 
 
 

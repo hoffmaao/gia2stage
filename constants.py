@@ -32,6 +32,9 @@ ice_density = 917.
 water_density = 1028.
 
 #: density of bedrock
+bedrock_density = 3100.
+
+#: density of bedrock
 bed_density = 3300.
 
 #: glen flow coefficient
