@@ -217,7 +217,7 @@ For both types of forcing, the glacier acts as a band-pass filter on the imposed
 
 \subsection{Kinematic model}
 
-To further understand the behavior of the ice-sheet bedrock system, we simplify our conceptual model to understand the coupling of state variables that represent the glacier length, interior thickness, and bedrock slope.
+To further understand the behavior of the ice-sheet bedrock system, we simplify our conceptual model to understand the coupling of state variables that represent the glacier and bedrock geometry.
 Ice-sheet mass change can be described in two stages for an idealized stable ice-sheet (Robel et al 2018; Christian et al 2020).
 In the first stage, accumulation falls in the interior and flows under its own weight towards the outlet glacier margins.
 The surface mass balance flux ($L\cdot S$) is modified by the interior flux, $Q$, according to the partitioning of stress accommodated by internal deformation and basal traction.
@@ -227,19 +227,16 @@ Q_g=\Omega h_g^\beta.
 \end{align}
  Two coupled equations capture the response of $H$, the interior thickness, and $L$, the glacier length, as they relax towards a steady state that balances all three fluxes:
  \begin{align}
- \frac{dL}{dt} &=\frac{1}{hg}(Q-Q_g) \\
-\frac{dH}{dt} &=S - \frac{Q}{L}-\frac{H}{h_g L}(Q-Q_g).& 
+\frac{dL}{dt} & = \frac{1}{h_g(L,b_x)}\cdot(Q(L,H)-Q_g(L,b_x)), \\
+\frac{dH}{dt} & = S-\frac{Q_g(L,b_x)}{L}-\frac{H}{h_g(L,b_x) L} \cdot (Q(L,H)-Q_g(L,b_x))
 \end{align}
 Descriptions of the kinematic fluxes ($L\cdot S, Q, Q_g$) with time series of forcing (i.e. surface mass balance, $S$ and ocean melt rate, $\Omega$) form a closed system of ordinary differential equations that describe variations in glacier thickness and length. 
 To represent the coupled response of the ice-sheet-lithosphere system, requires a third equation to capture the adjustment of the bedrock.
 To approximate the change in bedrock slope due to changes in glacier geometry, we calculate the new equilibrium slope based on the ice-sheet-ocean thickness profile and current deflection of the lithosphere. 
-The change in bedrock slope defines the new bed geometry and grounding line position, introducing a third stage to the outlet glacier model.
-The new system of equations that define the glacier-bedrock system are:
-\begin{align}
-    \frac{dL}{dt} & = \frac{1}{h_g(L,b_x)}\cdot(Q(L,H)-Q_g(L,b_x)), \\
-    \frac{dH}{dt} & = S-\frac{Q_g(L,b_x)}{L}-\frac{H}{h_g(L,b_x) L} \cdot (Q(L,H)-Q_g(L,b_x)), \\
-    \frac{db_x}{dt} & = -\frac{1}{\tau}(b_x - b_{x_0}).
-\end{align}
+The change in bedrock slope defines the new bed geometry and grounding line position, introducing a third stage to the outlet glacier model,
+\begin{equation}
+\frac{db_x}{dt} = -\frac{1}{\tau}(b_x - b_{x_0}).
+\end{equation}
 
 \begin{table}[h]
     \begin{tabular}{lll}
@@ -260,20 +257,16 @@ The new system of equations that define the glacier-bedrock system are:
     \caption{Mathematical symbols and descriptions of parameters used in the kinematic ice-sheet bedrock model.}
 \end{table}
 
-The outlet glacier model equations (8-10)  can be linearized to understand changes in the glacier length, thickness, and bedrock slope about a local equilibrium position $\bar{L}, \bar{H}$, and $\bar{b_x}$. At this stable equilibrium, the interior and grounding zone fluxes balance one another and the evolution of fluctuations about the average length, thickness and slope can be written in vector form as:
+The outlet glacier model equations (7-9)  can be linearized to understand changes in the glacier length, thickness, and bedrock slope about a local equilibrium position $\bar{L}, \bar{H}$, and $\bar{b_x}$. At this stable equilibrium, the interior and grounding zone fluxes balance one another and the evolution of fluctuations about the average length, thickness and slope can be written in vector form as:
 
 \begin{align}
 \frac{\partial}{\partial t}
- \begin{bmatrix} L' \\ H' \\ b_x' \end{bmatrix}
+\bold{Y}
  &=
-  \begin{bmatrix}
-   A_L & A_H & A_{b_x}  \\
-   B_L & B_H& B_{b_x} \\
-   C_L & C_H & C_{b_x}
-   \end{bmatrix}
-    \begin{bmatrix} L' \\ H' \\ b_x' \end{bmatrix}
+\bold{J}
+  \bold{Y}
     +
-    \begin{bmatrix} \sigma_H \\  \sigma_L \\ \sigma_{b_x} \end{bmatrix} f(t)&
+    \bold{S} f(t)&
 \end{align}
 \begin{align}
 \bf{Y} = 
@@ -297,7 +290,6 @@ where $A_H, A_L, A_{b_x}, B_H, B_L, B_{b_x}, C_H, C_L,$ and $C_{b_x}$ describe t
 \bf{S}_{precip} =   \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}; \space
 \bf{S}_{grounding} =   \begin{bmatrix} \bar{h_g}^{-1} \\ \bar{L}^{-1}\left(\frac{\bar{H}}{\bar{h_g}}-1\right) \\ 0 \end{bmatrix}.
 \end{align}
-
 
 
 The coupling described by each coefficient does not take a simple form because of the additional feedback with the bedrock slope, so we substitute representative glacier geometry, rheology and sliding parameter values into the vectorized system of equations to understand the solution character empirically. 
@@ -333,7 +325,7 @@ The coupling described by each coefficient does not take a simple form because o
     \caption{Parameters varied between three idealized glacier geometries, along with the solution for the linearized model.}
 \end{table}
 
-With the addition of the third-stage wherein the bedrock slope is allowed to respond with length and thickness change, the linearized glacier-bedrock model's eigenmodes are complex exponentially decaying functions composed of three characteristic timescales $\tau_f$, $\tau_s$ and $\tau_p$. The complex solutions introduce a third timescale that describes the frequency of damped oscillation (periodic motion described by $\tau_p$), and agrees with the damped resonance we observe from dynamic flow-line model simulations. We project the vector-form equation for the system onto the system eigenmodes, which can be written as simple one-dimensional linear ordinary differential equations for which we can write the green's function in the time domain, the power spectral density, and the covariance function explicitly and project onto the state variables to further understand the character of the response (see appendix for details). There are two factors that govern the state variable response for the system eigenmodes. The relative projection of each eigenmode onto one of the state variables, and the relative projection of external forcing onto each eigenmode.
+With the addition of the third-stage wherein the bedrock slope is allowed to respond with length and thickness change, the linearized glacier-bedrock model's eigenmodes are complex exponentially decaying functions composed of three characteristic timescales $\tau_f$, $\tau_s$ and $\tau_p$. The complex solutions introduce a third timescale,$\tau_p$, that describes the frequency of damped oscillation and agrees with the damped resonance we observe from dynamic flow-line model simulations. We project the vector-form equation for the system onto the system eigenmodes, which can be written as simple one-dimensional linear ordinary differential equations for which we can write the green's function in the time domain, the power spectral density, and the covariance function explicitly and project onto the state variables to further understand the character of the response (see appendix for details). There are two factors that govern the state variable response for the system eigenmodes. The relative projection of each eigenmode onto one of the state variables, and the relative projection of external forcing onto each eigenmode.
 
 
 \begin{figure}[t]
@@ -358,6 +350,7 @@ This section is underdeveloped in my head. I think we could aim to characterize 
 
 \subsection{Climate-bedrock Feedbacks}
 
+
 Few signals in the geologic record have captured the attention of the paleoclimate, and glaciology communities more than "Heinrich events" documented as anomalous occurrences of ice-rafted debris deposited in the North Atlantic during the last glacial.
 While the mechanism that drives these events remains a matter of debate, aspects of their character preserved in the proxy record are clear:
 The climate-ice sheet coupling appears to be phase locked with striking coincidence with the pattern of climate fluctuations documented from ice cores, and there is good evidence for global climate changes coincident with each event.
@@ -365,6 +358,7 @@ The climate-ice sheet coupling appears to be phase locked with striking coincide
 
 \section{Summary and Discussion}
 
+Ice sheet change impacts the solid earth in a number of significant ways including isostatic interactions between the 
 We've made a number of simplifying assumptions throughout our study. 
 We do not include elastic contributions to the glacier bedrock system in our linearized model.
 There are also other processes that affect bedrock geometry that we do not account for in either model.
