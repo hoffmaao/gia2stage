@@ -84,7 +84,7 @@ def equilibrium(H, L, m0, b0, Ωbar, Sbar,C=C,bedn=n,alphan=n,n=n, N=1000000, dt
 		L = L + dL
 	return H, L
 
-def simulation(H0, L0, m0, b0, Ω, S, N, n=n, dt=1.0):
+def simulation(H0, L0, m0, b0, Ω, S, N, bedn=n,alphan=n,n=n, C=C, dt=1.0):
     r"""
     return timeseries of ice thickness, glacier length, 
     bedrock slope and fluxes.
@@ -122,8 +122,8 @@ def simulation(H0, L0, m0, b0, Ω, S, N, n=n, dt=1.0):
     	L[t] = Ltmp
     	b = model.bed(b0,m0,Ltmp)
     	Hg= model.grounding_thickness(b)
-    	Q[t]=model.interior_flux(Ltmp,Htmp,ν(n,C),α(n),n)
-    	Qg[t]=model.grounding_flux(Ω[t],b0,m0,Ltmp,β(n))
+    	Q[t]=model.interior_flux(Ltmp,Htmp,ν(bedn,C),α(bedn,),n)
+    	Qg[t]=model.grounding_flux(Ω[t],b0,m0,Ltmp,β(bedn,n))
     	dH=model.dhdt(S[t],Htmp,Ltmp,b,Q[t],Qg[t])*dt*year
     	dL=model.dLdt(Q[t],Qg[t],Hg)*dt*year
     	Htmp = Htmp + dH
