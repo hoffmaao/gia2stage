@@ -1,0 +1,90 @@
+This is BibTeX, Version 0.99d (TeX Live 2020)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: gia2stage.aux
+The style file: copernicus.bst
+Database file #1: gia2stage.bib
+Too many commas in name 1 of "Gomez, Natalya, Mitrovica, Jerry X., Huybers, Peter, Clark, Peter U." for entry gomez2010
+while executing---line 3199 of file copernicus.bst
+Too many commas in name 1 of "Gomez, Natalya, Mitrovica, Jerry X., Huybers, Peter, Clark, Peter U." for entry gomez2010
+while executing---line 3199 of file copernicus.bst
+Too many commas in name 1 of "Gomez, Natalya, Mitrovica, Jerry X., Huybers, Peter, Clark, Peter U." for entry gomez2010
+while executing---line 3199 of file copernicus.bst
+Too many commas in name 1 of "Gomez, Natalya, Mitrovica, Jerry X., Huybers, Peter, Clark, Peter U." for entry gomez2010
+while executing---line 3199 of file copernicus.bst
+Too many commas in name 1 of "Gomez, Natalya, Mitrovica, Jerry X., Huybers, Peter, Clark, Peter U." for entry gomez2010
+while executing---line 3199 of file copernicus.bst
+Too many commas in name 1 of "Gomez, Natalya, Mitrovica, Jerry X., Huybers, Peter, Clark, Peter U." for entry gomez2010
+while executing---line 3199 of file copernicus.bst
+Too many commas in name 1 of "Gomez, Natalya, Mitrovica, Jerry X., Huybers, Peter, Clark, Peter U." for entry gomez2010
+while executing---line 3199 of file copernicus.bst
+Too many commas in name 1 of "Gomez, Natalya, Mitrovica, Jerry X., Huybers, Peter, Clark, Peter U." for entry gomez2010
+while executing---line 3199 of file copernicus.bst
+Too many commas in name 1 of "Gomez, Natalya, Mitrovica, Jerry X., Huybers, Peter, Clark, Peter U." for entry gomez2010
+while executing---line 3199 of file copernicus.bst
+Too many commas in name 1 of "Gomez, Natalya, Mitrovica, Jerry X., Huybers, Peter, Clark, Peter U." for entry gomez2010
+while executing---line 3199 of file copernicus.bst
+Too many commas in name 1 of "Gomez, Natalya, Mitrovica, Jerry X., Huybers, Peter, Clark, Peter U." for entry gomez2010
+while executing---line 3351 of file copernicus.bst
+Too many commas in name 1 of "Gomez, Natalya, Mitrovica, Jerry X., Huybers, Peter, Clark, Peter U." for entry gomez2010
+while executing---line 3351 of file copernicus.bst
+Too many commas in name 1 of "Gomez, Natalya, Mitrovica, Jerry X., Huybers, Peter, Clark, Peter U." for entry gomez2010
+while executing---line 3351 of file copernicus.bst
+Too many commas in name 1 of "Gomez, Natalya, Mitrovica, Jerry X., Huybers, Peter, Clark, Peter U." for entry gomez2010
+while executing---line 3351 of file copernicus.bst
+Too many commas in name 1 of "Gomez, Natalya, Mitrovica, Jerry X., Huybers, Peter, Clark, Peter U." for entry gomez2010
+while executing---line 3351 of file copernicus.bst
+Too many commas in name 1 of "Gomez, Natalya, Mitrovica, Jerry X., Huybers, Peter, Clark, Peter U." for entry gomez2010
+while executing---line 3351 of file copernicus.bst
+Too many commas in name 1 of "Gomez, Natalya, Mitrovica, Jerry X., Huybers, Peter, Clark, Peter U." for entry gomez2010
+while executing---line 3351 of file copernicus.bst
+Too many commas in name 1 of "Gomez, Natalya, Mitrovica, Jerry X., Huybers, Peter, Clark, Peter U." for entry gomez2010
+while executing---line 3351 of file copernicus.bst
+Too many commas in name 1 of "Gomez, Natalya, Mitrovica, Jerry X., Huybers, Peter, Clark, Peter U." for entry gomez2010
+while executing---line 3351 of file copernicus.bst
+Too many commas in name 1 of "Gomez, Natalya, Mitrovica, Jerry X., Huybers, Peter, Clark, Peter U." for entry gomez2010
+while executing---line 3351 of file copernicus.bst
+Warning--empty year in oerlemans1980b
+Warning--can't use both author and editor fields in pollard1984
+Warning--can't use both author and editor fields in weertman1972
+You've used 7 entries,
+            2819 wiz_defined-function locations,
+            1058 strings with 10464 characters,
+and the built_in function-call counts, 6624 in all, are:
+= -- 808
+> -- 137
+< -- 6
++ -- 89
+- -- 42
+* -- 347
+:= -- 606
+add.period$ -- 7
+call.type$ -- 7
+change.case$ -- 28
+chr.to.int$ -- 7
+cite$ -- 24
+duplicate$ -- 729
+empty$ -- 374
+format.name$ -- 53
+if$ -- 1331
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 64
+newline$ -- 30
+num.names$ -- 28
+pop$ -- 278
+preamble$ -- 1
+purify$ -- 28
+quote$ -- 0
+skip$ -- 435
+stack$ -- 0
+substring$ -- 332
+swap$ -- 642
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 57
+warning$ -- 3
+while$ -- 38
+width$ -- 0
+write$ -- 90
+(There were 20 error messages)

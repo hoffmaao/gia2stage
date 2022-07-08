@@ -14,9 +14,9 @@ import tqdm
 import copy
 import numpy as np
 import model
+import linear
 import forcing
 from constants import (gravity as g,
-	glen_flow_law as n,
 	ice_density as ρ_I,
 	water_density as ρ_W,
 	bedrock_density as ρ_s,
@@ -32,16 +32,18 @@ def m(n):
 	return 1/n
 
 def γ(n):
-	n
+	return n
 
 def α(n):
 	return 2*n+1
 
-def β(n):
-	return (m(n)+n+3)/(m(n)+1)
+def β(bedn,n):
+	return (m(bedn)+n+3)/(m(bedn)+1)
 
 def ν(n, C):
-	return (ρ_I*g/C)**n 
+	return (ρ_I*g/C)**n
+def λ(ρ_W,ρ_I):
+    return ρ_I/ρ_W
 
 
 
@@ -52,7 +54,7 @@ def initialize_forcing(Sbar, Sσ, Obar, Oσ, N, δS=0.0, δO=0.0, startS=0, endS
 
 	return forcing.Ω(N,Obar,Oσ,δO,startO,endO), forcing.smb(N,Sbar,Sσ,δS,startS,endS)
 
-def equilibrium(H, L, m0, b0, Ωbar, Sbar, N=1000000, dt=1.0):
+def equilibrium(H, L, m0, b0, Ωbar, Sbar,C=C,bedn=n,alphan=n,n=n, N=1000000, dt=1.0,):
 	r"""
 	return equilibrium thickness and length
 	H : float
@@ -71,18 +73,18 @@ def equilibrium(H, L, m0, b0, Ωbar, Sbar, N=1000000, dt=1.0):
         number of timesteps
 	"""
 
-	for t in range(N):
+	for t in tqdm.trange(N):
 		b = model.bed(b0,m0,L)
 		Hg = model.grounding_thickness(b)
-		Q = model.interior_flux(L,H,ν(n,C),α(n),n)
-		Qg = model.grounding_flux(Ωbar,b0,m0,L,β(n))
+		Q = model.interior_flux(L,H,ν(bedn,C),α(bedn),bedn)
+		Qg = model.grounding_flux(Ωbar,b0,m0,L,β(bedn,n))
 		dh = model.dhdt(Sbar,H,L,b,Q,Qg)*dt*year
 		dL = model.dLdt(Q,Qg,Hg)*dt*year
 		H = H + dh
 		L = L + dL
 	return H, L
 
-def simulation(H0, L0, m0, b0, Ω, S, N, dt=1.0):
+def simulation(H0, L0, m0, b0, Ω, S, N, n=n, dt=1.0):
     r"""
     return timeseries of ice thickness, glacier length, 
     bedrock slope and fluxes.
@@ -296,5 +298,46 @@ def Oerlemans_simulation(H0, L0, m0, b0, Ω, S, N, τ, dt=1.0):
     	Ltmp = Ltmp + dL
 
     return H,L,M,Q,Qg
+
+def linear_simulation(Hbar, Lbar, mbar, hgbar, Qgbar, b0, Ω, S, τ, κ, N, γ=1.0, dt=1.0):
+    r"""
+    return timeseries of ice thickness, glacier length, 
+    bedrock slope and fluxes.
+
+    Hbar : float
+        initial interior ice thickness
+    Lbar : float
+        initial glacier length
+    mbar : float
+        initial bedrock slope
+    hgbar : float
+        average grounding zone thickness
+    Qgbar : float
+        average grounding zone flux
+    b0 : float
+        interior bedrock elevation
+    Ω : float
+        discharge coefficient
+    S : float
+        surface mass balace
+    τ : float
+        timescale of rebound
+    γ : float
+        aspect ratio
+    """
+
+    L = np.zeros(N)
+    H = np.zeros(N)
+    M = np.zeros(N)
+    dt=dt*year
+
+
+    for t in tqdm.trange(1,N):
+        L[t]=linear.Lprime(H[t-1],L[t-1],M[t-1],Hbar,Lbar,mbar,hgbar,Qgbar,α(n),γ,ν(n,C),β(n),λ(ρ_W,ρ_I),b0,Ω[t],S[t],κ,τ,dt)
+        H[t]=linear.Hprime(H[t-1],L[t-1],M[t-1],Hbar,Lbar,mbar,hgbar,Qgbar,α(n),γ,ν(n,C),β(n),λ(ρ_W,ρ_I),b0,Ω[t],S[t],κ,τ,dt)
+        M[t]=linear.bxprime(H[t-1],L[t-1],M[t-1],Hbar,Lbar,mbar,hgbar,Qgbar,α(n),γ,ν(n,C),β(n),λ(ρ_W,ρ_I),b0,Ω[t],S[t],κ,τ,dt)
+    return L,H,M
+
+
 
 

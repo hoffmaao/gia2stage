@@ -11,7 +11,7 @@
 %% 2-column papers and preprints
 \documentclass[tc, manuscript]{copernicus}
 \usepackage{amsmath}
-
+\usepackage{cleveref}
 
 %% Journal abbreviations (please use the same for preprints and final revised papers)
 
@@ -78,18 +78,16 @@
 
 \begin{document}
 
-\title{Solid earth modulation of marine outlet glacier response}
+\title{Brief Communication: Solid earth modulation of marine outlet glacier response}
 
 
 % \Author[affil]{given_name}{surname}
 
 \Author[1]{Andrew}{Hoffman}
-
 %\Author[1]{Jessica}{Badgeley}
 %\Author[2]{Katie}{Brennen}
 %\Author[3]{John}{Christian}
 %\Author[4]{Natalya}{Gomez}
-%\Author[1]{Gerard}{Roe}
 
 \affil[1]{Department of Earth and Space Sciences, University of Washington, Seattle, Washington, USA}
 
@@ -99,12 +97,6 @@
 
 %\affil[4]{Department of Earth and Planetary Sciences, McGill University, Montreal, Quebec, Canada }
 
-
-%% The [] brackets identify the author with the corresponding affiliation. 1, 2, 3, etc. should be inserted.
-
-%% If an author is deceased, please mark the respective author name(s) with a dagger, e.g. "\Author[2,$\dag$]{Anton}{Smith}", and add a further "\affil[$\dag$]{deceased, 1 July 2019}".
-
-%% If authors contributed equally, please mark the respective author names with an asterisk, e.g. "\Author[2,*]{Anton}{Smith}" and "\Author[3,*]{Bradley}{Miller}" and add a further affiliation: "\affil[*]{These authors contributed equally to this work.}".
 
 
 \correspondence{hoffmaao@uw.edu}
@@ -135,21 +127,19 @@
 \begin{abstract}
 The dynamics of marine-terminating outlet glaciers and the solid earth are of fundamental interest in glaciology.
 In this study, we analyze the response of a coupled marine outlet glacier-bedrock system to different sources of climate forcing.
-We find that isostacy fundamentally changes the response of marine outlet glacier systems to surface-mass-balance forcing applied over the interior and the oceanic forcing applied at the grounding line.
-The reduced model is shown to emulate the behavior of more complex numerical models of ice flow.
-Together, these models demonstrate that ocean forcing first engages the fast, local response, and then the slow adjustment of interior ice, whereas surface-mass-balance forcing is dominated by the slow interior adjustment.
-We also demonstrate the importance of the timescales of stochastic forcing for assessing the natural variability of outlet glaciers, highlighting that decadal persistence in ocean variability can affect the behavior of outlet glaciers on centennial and longer timescales.
-Finally, we show that these transient responses have important implications for: attributing observed glacier changes to natural or anthropogenic influences; the future change already committed by past forcing; and the impact of past climate changes on the preindustrial glacier state, against which current and future anthropogenic influences are assessed.
+Reduced kinematic and more complex mechanical models demonstrate that feedbacks with the solid earth affect the millennial-scale ice sheet response mode, damping low frequency fluctuations in ice volume.
+
+
 \end{abstract}
 
 
 \section{Introduction} 
 Ice-sheet mass change in Antarctica and Greenland is primarily controlled by two processes: thinning at the marine ice-sheet margin due to ocean melt and consequent grounding line position change, and changes in accumulation and surface melt in the ice-sheet interior. 
 These mass change mechanisms affect the configuration of the ice sheet differently, eliciting different ice-sheet responses. 
-Ocean melt forcing can evoke a rapid (multi-decadal) response in glacier length that drives inland thinning from the margin while surface mass balance forcing drives slow (multi-century) change integrated over the time it takes for the glacier to convey the surface mass balance anomaly to the grounding line (Robel et al 2018; Christian et al 2020).
+Ocean melt forcing can evoke a rapid (multi-decadal) response in glacier length that drives inland thinning from the margin while surface mass balance forcing drives slow (multi-century) change integrated over the time it takes for the glacier to convey the surface mass balance anomaly to the grounding line \citep{robel2018,christian2020}.
 These response times carry significance for the temporal controls on glacier behavior and can be related to properties of the conveying ice-stream like the glacier geometry, the mechanisms that govern glacier sliding, and the forcing variability.
 Marine ice-sheet response times also overlap with the characteristic viscoelastic response time of the solid earth.
-The interplay between the deforming geoid due to ice loading and unloading and glacier mass change has been well studied (i.e Weertman 1972; Weertman 1980b; Pollard et al. 1984) and tangentially linked to the stability of geometrically vulnerable marine outlet glaciers through local sea-level adjustment (Gomez et al 2010). 
+The interplay between the deforming geoid due to ice loading and unloading and glacier mass change has been well studied \citep{weertman1972,weertman1980b,pollard1984}) and tangentially linked to the stability of geometrically vulnerable marine outlet glaciers through local sea-level adjustment \citet{gomez2010}. 
 Understanding the past and future contribution of ice-sheet mass change to distributed sea-level change has motivated acquisition of geodetic time series and coupled simulation of the earth, ice-sheet, sea-level system. 
 Together, observations and fully coupled global models have helped quantify committed spatial patterns of sea-level change and the imprinted signature of past ice-sheet configurations in paleo sea-level markers; however, fundamental questions remain regarding the coupled influence of forcing variability, and the natural frequencies of the solid-earth system on ice-sheet response.
 
@@ -182,7 +172,7 @@ Q_g = \left(\frac{\bar{A}(\rho_i g)^{n+1}(1-\rho_i/\rho_w)^n}{4^nC_s}\right)^{\f
 
 
 
-Bedrock elevation changes with ice and ocean loading as a combination of time-lagged asthenosphereic relaxation towards isostatic equilibrium, and elastic bending of the lithosphere. The downward deflection $w_b$ of the fully relaxed response is governed by the full elastic response 
+Bedrock elevation changes with ice and ocean loading as a combination of time-lagged asthenospheric relaxation towards isostatic equilibrium, and elastic bending of the lithosphere. The downward deflection $w_b$ of the fully relaxed response is governed by the full elastic response 
 \begin{equation}
 D\nabla^4 w_b + \rho_b g w_b = q
 \end{equation}
@@ -196,11 +186,11 @@ where $h$ is ice thickness, $h_w$ is ocean column thickness and $h^{eq}$ and $h_
 \begin{equation}
 \frac{\partial h_b}{\partial t} = -\frac{1}{\tau} \left(h_b - h_b^{eq} + w_b \right)
 \end{equation}
-where $h_b$ is the current bedrock elevation, $h_b^{eq}$ is its equilibrium value and $\tau$ is the $\approx 3000yr$ asthenosphere relaxation timescale. In our model simulations we vary the relaxation timescale of the the asthenosphere (proportional to the kinematic viscosity that describes the efficiency of momentum transfer in the asthenosphere) and the flexural rigidity parameter (the bedrock properties that control the solid earth response to ), as well as parameters that govern ice deformation (the glacier filter).
+where $h_b$ is the current bedrock elevation, $h_b^{eq}$ is its equilibrium value and $\tau$ is the $\approx 3000yr$ asthenosphere relaxation timescale. The value of this timescale strongly influences the behavior of the simulated ice sheet \citet{oerlemans1980b}. In our model simulations we vary the relaxation timescale of the the asthenosphere (proportional to the kinematic viscosity that describes the efficiency of momentum transfer in the asthenosphere) and the flexural rigidity parameter (the bedrock properties that control the solid earth response to ), as well as parameters that govern ice deformation (the glacier filter).
 
 \subsection{Response to forcing}
 
-Like Christian et al. (2020) and Robel et al. (2018), we begin by comparing the flowline model's response to forcing from either surface-mass-balance changes in the interior or ocean forcing at the terminus. In all model experiments throughout this study, interior surface-mass-balance anomalies are assumed to be spatially uniform and ocean forcing is parameterized very simply by perturbing the grounding-line-flux coefficient. We focus on representing flux perturbations, which in reality result from many different ice–ocean, ice-atmosphere interactions because we aim to understand how glacier-bedrock dynamics respond to each forcing type. As noted by Christian et al (2020), this also enables comparison of fractional change in surface mass balance flux, which constitutes a flux anomaly with the same magnitude as fractional change in the grounding line flux when the system is in equilibrium.
+Like \citet{christian2020} and \citet{robel2018}, we begin by comparing the flowline model's response to forcing from either surface-mass-balance changes in the interior or ocean forcing at the terminus. In all model experiments throughout this study, interior surface-mass-balance anomalies are assumed to be spatially uniform and ocean forcing is parameterized very simply by perturbing the grounding-line-flux coefficient. We focus on representing flux perturbations, which in reality result from many different ice–ocean, ice-atmosphere interactions because we aim to understand how glacier-bedrock dynamics respond to each forcing type. As noted by \citet{christian2020}, this also enables comparison of fractional change in surface mass balance flux, which constitutes a flux anomaly with the same magnitude as fractional change in the grounding line flux when the system is in equilibrium.
 
 \begin{figure}[t]
 \includegraphics[width=8.3cm]{../figures/overview.png}
@@ -213,12 +203,12 @@ Like Christian et al. (2020) and Robel et al. (2018), we begin by comparing the 
 
 We apply forcing variability as interannual white noise, which by definition has equal power at all frequencies and no interannual persistence. We apply the exact same white-noise time series as perturbations in the grounding line flux coefficient or the surface mass balance anomalies but with the opposite sign so that the corresponding ice-volume anomalies match. The anomaly time series are scaled to have standard deviations equal to $20\%$ of the mean values. Figure 2b shows the resulting length responses and Figure 2e shows the resulting power spectral density of length change.  
 Because white-noise forcing has a flat power spectrum, the shapes of the response spectra reveal the glacier's filtering properties.
-For both types of forcing, the glacier acts as a band-pass filter on the imposed climate anomalies, producing kilometer-scale fluctuations with clear persistence that are damped at low frequencies compared to the rigid bedrock system as the bed slope adjustment tends to guide the glacier back to equilibrium.
+For both types of forcing, the glacier acts as a band-pass filter on the imposed climate anomalies, producing kilometer-scale fluctuations with clear persistence that damp low frequency variations in climate anomaly forcing.
 
 \subsection{Kinematic model}
 
 To further understand the behavior of the ice-sheet bedrock system, we simplify our conceptual model to understand the coupling of state variables that represent the glacier and bedrock geometry.
-Ice-sheet mass change can be described in two stages for an idealized stable ice-sheet (Robel et al 2018; Christian et al 2020).
+Ice-sheet mass change can be described in two stages for an idealized stable ice-sheet \citep{robel2018,christian2020}.
 In the first stage, accumulation falls in the interior and flows under its own weight towards the outlet glacier margins.
 The surface mass balance flux ($L\cdot S$) is modified by the interior flux, $Q$, according to the partitioning of stress accommodated by internal deformation and basal traction.
 The interior reservoir of the ice-sheet drains according to this interior flux until it reaches the second stage where stresses change as the glacier goes afloat giving rise to a kinematic grounding line flux $Q_g$, that depends nonlinearly on the grounding zone ice thickness, $h_g$,
@@ -227,15 +217,15 @@ Q_g=\Omega h_g^\beta.
 \end{align}
  Two coupled equations capture the response of $H$, the interior thickness, and $L$, the glacier length, as they relax towards a steady state that balances all three fluxes:
  \begin{align}
-\frac{dL}{dt} & = \frac{1}{h_g(L,b_x)}\cdot(Q(L,H)-Q_g(L,b_x)), \\
-\frac{dH}{dt} & = S-\frac{Q_g(L,b_x)}{L}-\frac{H}{h_g(L,b_x) L} \cdot (Q(L,H)-Q_g(L,b_x))
+\frac{dL}{dt} & = \frac{1}{h_g(L,b_x)}\cdot(Q(L,H)-Q_g(L,b_x)), \label{eqn:lengthchange} \\
+\frac{dH}{dt} & = S-\frac{Q_g(L,b_x)}{L}-\frac{H}{h_g(L,b_x) L} \cdot (Q(L,H)-Q_g(L,b_x)) \label{eqn:thicknesschange}
 \end{align}
 Descriptions of the kinematic fluxes ($L\cdot S, Q, Q_g$) with time series of forcing (i.e. surface mass balance, $S$ and ocean melt rate, $\Omega$) form a closed system of ordinary differential equations that describe variations in glacier thickness and length. 
 To represent the coupled response of the ice-sheet-lithosphere system, requires a third equation to capture the adjustment of the bedrock.
 To approximate the change in bedrock slope due to changes in glacier geometry, we calculate the new equilibrium slope based on the ice-sheet-ocean thickness profile and current deflection of the lithosphere. 
 The change in bedrock slope defines the new bed geometry and grounding line position, introducing a third stage to the outlet glacier model,
 \begin{equation}
-\frac{db_x}{dt} = -\frac{1}{\tau}(b_x - b_{x_0}).
+\frac{db_x}{dt} = -\frac{1}{\tau}(b_x - b_{x_0}). \label{eqn:slopechange}
 \end{equation}
 
 \begin{table}[h]
@@ -257,7 +247,7 @@ The change in bedrock slope defines the new bed geometry and grounding line posi
     \caption{Mathematical symbols and descriptions of parameters used in the kinematic ice-sheet bedrock model.}
 \end{table}
 
-The outlet glacier model equations (7-9)  can be linearized to understand changes in the glacier length, thickness, and bedrock slope about a local equilibrium position $\bar{L}, \bar{H}$, and $\bar{b_x}$. At this stable equilibrium, the interior and grounding zone fluxes balance one another and the evolution of fluctuations about the average length, thickness and slope can be written in vector form as:
+The outlet glacier model equations \crefrange{eqn:lengthchange}{eqn:slopechange}  can be linearized to understand changes in the glacier length, thickness, and bedrock slope about a local equilibrium solution for $\bar{L}, \bar{H}$, and $\bar{b_x}$. At this stable equilibrium, the interior and grounding zone fluxes balance one another and the evolution of fluctuations about the average length, thickness and slope can be written in vector form as:
 
 \begin{align}
 \frac{\partial}{\partial t}
@@ -292,7 +282,7 @@ where $A_H, A_L, A_{b_x}, B_H, B_L, B_{b_x}, C_H, C_L,$ and $C_{b_x}$ describe t
 \end{align}
 
 
-The coupling described by each coefficient does not take a simple form because of the additional feedback with the bedrock slope, so we substitute representative glacier geometry, rheology and sliding parameter values into the vectorized system of equations to understand the solution character empirically. 
+The coupling described by each coefficient does not take a simple form because of the additional feedback with the bedrock slope, so we substitute representative glacier geometry, rheology and sliding parameter values into the vectorized system of equations to understand the eigen modes of the system empirically. 
 
 
 \section{Interpretations}
@@ -325,7 +315,8 @@ The coupling described by each coefficient does not take a simple form because o
     \caption{Parameters varied between three idealized glacier geometries, along with the solution for the linearized model.}
 \end{table}
 
-With the addition of the third-stage wherein the bedrock slope is allowed to respond with length and thickness change, the linearized glacier-bedrock model's eigenmodes are complex exponentially decaying functions composed of three characteristic timescales $\tau_f$, $\tau_s$ and $\tau_p$. The complex solutions introduce a third timescale,$\tau_p$, that describes the frequency of damped oscillation and agrees with the damped resonance we observe from dynamic flow-line model simulations. We project the vector-form equation for the system onto the system eigenmodes, which can be written as simple one-dimensional linear ordinary differential equations for which we can write the green's function in the time domain, the power spectral density, and the covariance function explicitly and project onto the state variables to further understand the character of the response (see appendix for details). There are two factors that govern the state variable response for the system eigenmodes. The relative projection of each eigenmode onto one of the state variables, and the relative projection of external forcing onto each eigenmode.
+With the addition of the third-stage wherein the bedrock slope is allowed to respond with length and thickness change, the linearized glacier-bedrock model's eigenmodes are complex exponentially decaying functions composed of three characteristic timescales $\tau_f$, $\tau_s$ and $\tau_p$.
+The complex solutions introduce a third timescale,$\tau_p$, that describes the frequency of damped oscillation and agrees with the damped resonance we observe from dynamic flow-line model simulations. We project the vector-form equation for the system onto the system eigenmodes, which can be written as simple one-dimensional linear ordinary differential equations for which we can write the green's function in the time domain, the power spectral density, and the covariance function explicitly and project onto the state variables to further understand the character of the response (see appendix for details). There are two factors that govern the state variable response for the system eigenmodes: the relative projection of each eigenmode onto one of the state variables, and the relative projection of external forcing onto each eigenmode.
 
 
 \begin{figure}[t]
@@ -334,11 +325,12 @@ With the addition of the third-stage wherein the bedrock slope is allowed to res
 The left column is the length response to precipitation forcing ($\Delta S = −0.2$). 
 The right column is the length response to Grounding Line forcing ($\Delta Q_g = 0.2$).
 The projections of the eigenmodes onto the $H, L$, and $b_x$ are identical. The only difference comes from ($\sigma_H, \sigma_L, \sigma_{b_x}$) which affects how much each type of forcing excites each eigenmode.}
+\label{fig:linear}
 \end{figure}
 
 
 
-Figures ** demonstrate that the inclusion of isostatic adjustment significantly changes the behavior of marine-terminating outlet glaciers. 
+Figure \ref{fig:linear} demonstrate that the inclusion of isostatic adjustment significantly changes the behavior of marine-terminating outlet glaciers. 
 In the next section, we examine the consequences of filtering properties of the coupled ice-sheet-bedrock system for two key questions in glaciology: 
 How does damping at non-resonant frequencies affect the spectra of ice volume variability preserved in proxy records?
 And how could the resonant response of the glacier to forcing variability, in turn, affect the climate system?
@@ -351,14 +343,14 @@ This section is underdeveloped in my head. I think we could aim to characterize 
 \subsection{Climate-bedrock Feedbacks}
 
 
-Few signals in the geologic record have captured the attention of the paleoclimate, and glaciology communities more than "Heinrich events" documented as anomalous occurrences of ice-rafted debris deposited in the North Atlantic during the last glacial.
+Few signals in the geologic record have captured the attention of the paleoclimate, and glaciology communities more than "Heinrich events" documented as anomalous occurrences of ice-rafted debris deposited in the North Atlantic during the last glacial due to repeated collapse of the Laurentide Ice Sheet.
 While the mechanism that drives these events remains a matter of debate, aspects of their character preserved in the proxy record are clear:
 The climate-ice sheet coupling appears to be phase locked with striking coincidence with the pattern of climate fluctuations documented from ice cores, and there is good evidence for global climate changes coincident with each event.
 
 
 \section{Summary and Discussion}
 
-Ice sheet change impacts the solid earth in a number of significant ways including isostatic interactions between the 
+Ice sheet change impacts the solid earth in a number of significant ways including isostatic interactions between the deflected lithosphere and the grounding zone thickness.
 We've made a number of simplifying assumptions throughout our study. 
 We do not include elastic contributions to the glacier bedrock system in our linearized model.
 There are also other processes that affect bedrock geometry that we do not account for in either model.
@@ -369,13 +361,13 @@ We also exclude feedbacks between ice sheet-bedrock geometry and forcing, which 
 
 \conclusions  
 Our simple modeling demonstrates a subtle feedback between multi-milenia climate variability and the modulation of marine ice-sheet bedrock that tends to stabilize the marine ice-sheet system by damping low frequency oscillations in glacier thickness and glacier length relative to simulations that assume no bedrock response. 
-The same feedback also amplifies oscillations in glacier length at the resonant frequency of the bedrock.
+The coupled glacier-bedrock system effectively bandpasses variability 
 
 
 %% The following commands are for the statements about the availability of data sets and/or software code corresponding to the manuscript.
 %% It is strongly recommended to make use of these sections in case data sets and/or software code have been part of your research the article is based on.
 
-\codedataavailability{The code used to run the simulations included in the text is freely available at https://github.com/hoffmaao/gia2stage (last accessed April 20 2021).} 
+\codedataavailability{The code used to run the simulations included in the text is freely available at https://github.com/hoffmaao/gia2stage (last accessed May 20 2021).} 
 
 
 %\dataavailability{TEXT} %% use this section when having only data sets available
@@ -453,15 +445,9 @@ AOH was supported by NASA FINESST grant progran ()
 
 %% The reference list is compiled as follows:
 
-\begin{thebibliography}{}
+\bibliographystyle{copernicus}
+\bibliography{gia2stage.bib}
 
-\bibitem[AUTHOR(YEAR)]{LABEL1}
-REFERENCE 1
-
-\bibitem[AUTHOR(YEAR)]{LABEL2}
-REFERENCE 2
-
-\end{thebibliography}
 
 %% Since the Copernicus LaTeX package includes the BibTeX style file copernicus.bst,
 %% authors experienced with BibTeX only have to include the following two lines:

@@ -13,7 +13,6 @@
 import numpy as np
 import sympy
 from constants import (gravity as g,
-	glen_flow_law as n,
 	ice_density as ρ_I,
 	water_density as ρ_W,
 	bedrock_density as ρ_s,

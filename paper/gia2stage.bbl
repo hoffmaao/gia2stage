@@ -1,0 +1,46 @@
+\begin{thebibliography}{7}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{{\tt #1}}
+\providecommand{\urlprefix}{URL }
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{https://doi.org/\discretionary{}{}{}#1}\else
+  \providecommand{\doi}{https://doi.org/\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
+
+\bibitem[{Christian et~al.(2020)Christian, Robel, Proistosescu, Roe, Koutnik,
+  and Christianson}]{christian2020}
+Christian, J.~E., Robel, A.~A., Proistosescu, C., Roe, G., Koutnik, M., and
+  Christianson, K.: The contrasting response of outlet glaciers to interior and
+  ocean forcing, The Cryosphere, 14, 2515--2535, \doi{10.5194/tc-14-2515-2020},
+  2020.
+
+\bibitem[{Gomez(2010)}]{gomez2010}
+Gomez, Natalya, M. J. X. H. P. C. P.~U.: Sea level as a stabilizing factor for
+  marine-ice-sheet grounding lines, Nature Geoscience, 3, 850--853,
+  \doi{10.1038/ngeo1012}, 2010.
+
+\bibitem[{Oerlemans()}]{oerlemans1980b}
+Oerlemans, J.: Model experiments on the 100,000-yr glacial cycle, Nature, 287,
+  430--432, \doi{https://doi.org/10.1038/287430a0}.
+
+\bibitem[{Pollard(1984)}]{pollard1984}
+Pollard, D.: Some Ice-Age Aspects of a Calving Ice-Sheet Model, pp. 541--564,
+  Springer Netherlands, Dordrecht, \doi{10.1007/978-94-017-4841-4_4}, 1984.
+
+\bibitem[{Robel et~al.(2018)Robel, Roe, and Haseloff}]{robel2018}
+Robel, A.~A., Roe, G.~H., and Haseloff, M.: Response of Marine-Terminating
+  Glaciers to Forcing: Time Scales, Sensitivities, Instabilities, and
+  Stochastic Dynamics, Journal of Geophysical Research: Earth Surface, 123,
+  2205--2227, \doi{https://doi.org/10.1029/2018JF004709}, 2018.
+
+\bibitem[{Weertman(1972)}]{weertman1972}
+Weertman, J.: The Theory of Glacier Sliding, Macmillan Education UK, London,
+  \doi{10.1007/978-1-349-15480-7_14}, 1972.
+
+\bibitem[{Weertman(1980)}]{weertman1980b}
+Weertman, J.: The stopping of a rising, liquid-filled crack in the Earth's
+  crust by a freely slipping horizontal joint, Journal of Geophysical Research:
+  Solid Earth, 85, 967--976, \doi{https://doi.org/10.1029/JB085iB02p00967},
+  1980.
+
+\end{thebibliography}
